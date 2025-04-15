@@ -1,0 +1,75 @@
+﻿@model IEnumerable<TravelAgency.DbModels.Ticket>
+@{
+    ViewData["Title"] = "Реестр горячих туров";
+
+    double total = 0;
+    int numOfSurcharges = 0;
+    double totalSurcharges = 0;
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Реестр горячих туров</h1>
+</div>
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Направление</th>
+            <th>Дата вылета</th>
+            <th>Количество ночей</th>
+            <th>Стоимость за отдыхающего</th>
+            <th>Количество отдыхающих</th>
+            <th>Наличие Wi-Fi</th>
+            <th>Доплаты(руб.)</th>  
+            <th>Общая стоимость</th>
+        </tr>
+    </thead>
+    @foreach (var tickets in Model)
+    {
+        <tr>
+            <td>@tickets.Direction</td>
+            <td>@tickets.DepartureDate</td>
+            <td>@tickets.NumberOfNights</td>
+            <td>@tickets.CostPerPerson</td>
+            <td>@tickets.PersonCount</td>
+            <td>@tickets.AvailabilityWiFi</td>
+            <td>@tickets.Surcharge</td>
+            <td>@tickets.TotalCost</td>
+            <td>
+                <a asp-action="Edit" asp-controller="Home" asp-route-id="@tickets.Id">Редактировать</a>
+            </td>
+            <td>
+                <form asp-controller="Home" asp-action="Delete" method="post" asp-route-id="@tickets.Id">
+                    <input type="submit" class="btn btn-danger" value="X" />
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<br/>
+<hr style="border-color: red;">
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col" align="center">Общее кол-во туров</th>
+            <th scope="col" align="center">Общая сумма за все туры</th>
+            <th scope="col" align="center">Количество туров с доплатами</th>
+            <th scope="col" align="center">Общая сумму доплат</th>
+        </tr>
+    </thead>
+    <tr class="table-active">
+        <td align="center">@Model.Count()</td>
+        @foreach (var tickets in Model)
+        {
+            total += tickets.TotalCost;
+            if (tickets.Surcharge != 0)
+            {
+                numOfSurcharges++;
+            }
+            totalSurcharges += tickets.Surcharge;
+        }
+        <td align="center">@total</td>
+        <td align="center">@numOfSurcharges</td>
+        <td align="center">@totalSurcharges</td>
+    </tr>
+</table>

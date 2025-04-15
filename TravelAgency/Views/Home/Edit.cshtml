@@ -1,0 +1,67 @@
+﻿@model TravelAgency.DbModels.Ticket
+@{
+    ViewData["Title"] = "Редактирование тура";
+}
+
+<form asp-action="Edit" asp-controller="Home" asp-route-id ="@Model.Id">
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label asp-for="Direction" class="form-label">Направление</label>
+            <input type="text" class="form-control" id="InputDirection" asp-for="Direction">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label asp-for="DepartureDate" class="form-label">Дата вылета</label>
+            <input type="date" class="form-control" id="InputDeparture" asp-for="DepartureDate">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label asp-for="NumberOfNights" class="form-label">Количество ночей</label>
+            <input type="number" class="form-control" id="InputNumOfNights" asp-for="NumberOfNights">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label asp-for="CostPerPerson" class="form-label">Стоимость за отдыхающего</label>
+            <input type="number" class="form-control" id="InputCostPerPerson" asp-for="CostPerPerson">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label asp-for="PersonCount" class="form-label">Количество отдыхающих</label>
+            <input type="number" class="form-control" id="InputPersonCount" asp-for="PersonCount">
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <label asp-for="AvailabilityWiFi" class="form-label">Наличие Wi-Fi</label>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="form-check me-3">
+            <input class="form-check-input" type="radio" asp-for="AvailabilityWiFi" id="radioYes1" value="Yes">
+            <label class="form-check-label" for="radioYes1">
+                Yes
+            </label>
+        </div>
+        <div class="form-check me-3">
+            <input class="form-check-input" type="radio" asp-for="AvailabilityWiFi" id="radioNo2" value="No">
+            <label class="form-check-label" for="radioNo2">
+                No
+            </label>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label asp-for="Surcharge" class="form-label">Доплаты (руб.)</label>
+            <input type="number" class="form-control" id="InputSurcharge" asp-for="Surcharge">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+</form>

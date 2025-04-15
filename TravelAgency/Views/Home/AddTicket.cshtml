@@ -1,0 +1,67 @@
+﻿@model TravelAgency.DbModels.Ticket?
+@{
+    ViewData["Title"] = "AddTicket";
+}
+
+<form method="post" asp-action="AddTicket">
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+        <label for="InputDirection" class="form-label">Направление</label>
+        <input type="text" class="form-control" id="InputDirection" name="Direction">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label for="InputDeparture" class="form-label">Дата вылета</label>
+            <input type="date" class="form-control" id="InputDeparture" name="DepartureDate">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label for="InputNumOfNights" class="form-label">Количество ночей</label>
+            <input type="number" class="form-control" id="InputNumOfNights" name="NumberOfNights">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label for="InputCostPerPerson" class="form-label">Стоимость за отдыхающего</label>
+            <input type="number" class="form-control" id="InputCostPerPerson" name="CostPerPerson">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label for="InputPersonCount" class="form-label">Количество отдыхающих</label>
+            <input type="number" class="form-control" id="InputPersonCount" name="PersonCount">
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center">
+            <label for="InputWiFi" class="form-label">Наличие Wi-Fi</label>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="form-check me-3">
+            <input class="form-check-input" type="radio" name="AvailabilityWiFi" id="radioYes1" value="Yes">
+            <label class="form-check-label" for="radioYes1">
+                Yes
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="AvailabilityWiFi" id="radioNo2" value="No" checked>
+            <label class="form-check-label" for="radioNo2">
+                No
+            </label>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="mb-3" style="width: 300px;">
+            <label for="InputSurcharge" class="form-label">Доплаты (руб.)</label>
+            <input type="number" class="form-control" id="InputSurcharge" name="Surcharge">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Добавить</button>
+    </div>
+</form>
