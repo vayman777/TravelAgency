@@ -20,4 +20,13 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ContextContracts\Context.Contracts.csproj" />
+    <ProjectReference Include="..\Context\Context.csproj" />
+    <ProjectReference Include="..\Repositories.Contracts\Repositories.Contracts.csproj" />
+    <ProjectReference Include="..\Repositories\Repositories.csproj" />
+    <ProjectReference Include="..\TravelAgency.Core.Contracts\TravelAgency.Core.Contracts.csproj" />
+    <ProjectReference Include="..\TravelAgency.Domain\TravelAgency.Core.csproj" />
+  </ItemGroup>
+
 </Project>

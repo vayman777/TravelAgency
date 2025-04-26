@@ -1,24 +1,34 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TravelAgency.Models;
-using TravelAgency.DbModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
+using TravelAgency.Core.Services;
+using TravelAgency.Core.Contracts.Models;
 
 namespace TravelAgency.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly TravelAgencyDbContext _context;
-        public HomeController(TravelAgencyDbContext context)
+        private readonly ITicketService ticketService;
+        public HomeController(ITicketService ticketService)
         {
-            this._context = context;
+            this.ticketService = ticketService;
         }
 
-        public IActionResult Index(Ticket ticket)
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<Ticket> TicketList = _context.Tickets;
-            return View(TicketList);
+            var result = await ticketService.GetTicketsAsync();
+            return View(result.Select(r => new TicketResponse()
+            {
+                Id = r.Id,
+                Direction = r.Direction,
+                DepartureDate = r.DepartureDate,
+                NumberOfNights = r.NumberOfNights,
+                CostPerPerson = r.CostPerPerson,
+                PersonCount = r.PersonCount,
+                AvailabilityWiFi = r.AvailabilityWiFi,
+                Surcharge = r.Surcharge,
+                TotalCost = r.TotalCost
+            }));
         }
 
         public IActionResult AddTicket()
@@ -26,49 +36,70 @@ namespace TravelAgency.Controllers
             return View();
         }
 
-
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id != null)
+            try
             {
-                Ticket? ticket = await _context.Tickets.FirstOrDefaultAsync(x => x.Id == id);
-                if (ticket != null) return View(ticket);
+               var ticket = await ticketService.GetTicketByIdAsync(id);
+               await ticketService.UpdateAsync(ticket);
+               return View(ticket);
             }
-            return NotFound();
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Ticket ticket)
+        public async Task<IActionResult> Edit(TicketResponse ticket)
         {
-            _context.Tickets.Update(ticket);
-            await _context.SaveChangesAsync();
+            var ticketDto = new TicketDto()
+            {
+                Id = ticket.Id,
+                Direction = ticket.Direction,
+                DepartureDate = ticket.DepartureDate,
+                NumberOfNights = ticket.NumberOfNights,
+                CostPerPerson = ticket.CostPerPerson,
+                PersonCount = ticket.PersonCount,
+                AvailabilityWiFi = ticket.AvailabilityWiFi,
+                Surcharge = ticket.Surcharge,
+                TotalCost = ticket.TotalCost
+            };
+            await ticketService.UpdateAsync(ticketDto);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTicket(Ticket ticket)
+        public async Task<IActionResult> AddTicket(TicketResponse ticket)
         {
-            ticket.TotalCost = (ticket.CostPerPerson * ticket.PersonCount) + ticket.Surcharge;
-
-            _context.Tickets.Add(ticket);
-            await _context.SaveChangesAsync();
+            var ticketDto = new TicketDto()
+            {
+                Id = ticket.Id,
+                Direction = ticket.Direction,
+                DepartureDate = ticket.DepartureDate,
+                NumberOfNights = ticket.NumberOfNights,
+                CostPerPerson = ticket.CostPerPerson,
+                PersonCount = ticket.PersonCount,
+                AvailabilityWiFi = ticket.AvailabilityWiFi,
+                Surcharge = ticket.Surcharge,
+                TotalCost = ticket.TotalCost
+            };
+            await ticketService.CreateAsync(ticketDto);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id != null)
+            try
             {
-                Ticket? ticket = await _context.Tickets.FirstOrDefaultAsync(x => x.Id == id);
-                if (ticket != null)
-                {
-                    _context.Tickets.Remove(ticket);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
+                await ticketService.DeleteAsync(id);
+                return RedirectToAction("Index");
             }
-            return NotFound();
+            catch (NullReferenceException)
+            {
+                return NotFound();
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

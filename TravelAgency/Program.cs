@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using TravelAgency.DbModels;
+using TravelAgency.Core.Services;
+using TravelAgency.DAL.Context;
+using TravelAgency.DAL.Context.Contracts;
+using TravelAgency.DAL.Repositories;
+using TravelAgency.DAL.Repositories.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +12,17 @@ builder.Services.AddControllersWithViews();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TravelAgencyDbContext>(options => options.UseNpgsql(connectionString));
+
+#region Добавление сервисов
+builder.Services.AddScoped<IDbReader,TravelAgencyDbContext>();
+builder.Services.AddScoped<IDbWriter, TravelAgencyDbContext>();
+builder.Services.AddScoped<IUnitOfWork, TravelAgencyDbContext>();
+
+builder.Services.AddScoped<ITicketReadRepository, TicketReadRepository>();
+builder.Services.AddScoped<ITicketWriteRepository, TicketWriteRepository>();
+
+builder.Services.AddScoped<ITicketService, TicketService>();
+#endregion
 
 var app = builder.Build();
 
