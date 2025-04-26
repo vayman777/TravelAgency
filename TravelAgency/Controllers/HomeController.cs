@@ -40,9 +40,21 @@ namespace TravelAgency.Controllers
         {
             try
             {
-               var ticket = await ticketService.GetTicketByIdAsync(id);
-               await ticketService.UpdateAsync(ticket);
-               return View(ticket);
+                var ticket = await ticketService.GetTicketByIdAsync(id);
+                await ticketService.UpdateAsync(ticket);
+                var ticketResponse = new TicketResponse()
+                {
+                    Id = ticket.Id,
+                    Direction = ticket.Direction,
+                    DepartureDate = ticket.DepartureDate,
+                    NumberOfNights = ticket.NumberOfNights,
+                    CostPerPerson = ticket.CostPerPerson,
+                    PersonCount = ticket.PersonCount,
+                    AvailabilityWiFi = ticket.AvailabilityWiFi,
+                    Surcharge = ticket.Surcharge,
+                    TotalCost = ticket.TotalCost
+                };
+                return View(ticketResponse);
             }
             catch (NullReferenceException)
             {

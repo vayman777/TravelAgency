@@ -13,10 +13,10 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TravelAgencyDbContext>(options => options.UseNpgsql(connectionString));
 
-#region Добавление сервисов
-builder.Services.AddScoped<IDbReader,TravelAgencyDbContext>();
-builder.Services.AddScoped<IDbWriter, TravelAgencyDbContext>();
-builder.Services.AddScoped<IUnitOfWork, TravelAgencyDbContext>();
+#region Adding services
+builder.Services.AddScoped<IDbReader>(x => x.GetRequiredService<TravelAgencyDbContext>());
+builder.Services.AddScoped<IDbWriter>(x => x.GetRequiredService<TravelAgencyDbContext>());
+builder.Services.AddScoped<IUnitOfWork>(x => x.GetRequiredService<TravelAgencyDbContext>());
 
 builder.Services.AddScoped<ITicketReadRepository, TicketReadRepository>();
 builder.Services.AddScoped<ITicketWriteRepository, TicketWriteRepository>();
