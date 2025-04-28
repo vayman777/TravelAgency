@@ -5,6 +5,9 @@ using TravelAgency.DAL.Context.Contracts;
 
 namespace TravelAgency.TestHelpers
 {
+    /// <summary>
+    /// Контекст БД на оперативной памяти
+    /// </summary>
     public class TravelAgencyContextInMemory
     {
         /// <summary>
