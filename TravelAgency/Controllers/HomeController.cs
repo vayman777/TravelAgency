@@ -6,14 +6,24 @@ using TravelAgency.Core.Contracts.Models;
 
 namespace TravelAgency.Controllers
 {
+    /// <summary>
+    /// Контроллер для работы с билетами
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ITicketService ticketService;
+
+        /// <summary>
+        /// Инициализирует новый экземпляр <see cref="HomeController"/>
+        /// </summary>
         public HomeController(ITicketService ticketService)
         {
             this.ticketService = ticketService;
         }
 
+        /// <summary>
+        /// Отображение списка всех билетов
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             var result = await ticketService.GetTicketsAsync();
@@ -31,11 +41,17 @@ namespace TravelAgency.Controllers
             }));
         }
 
+        /// <summary>
+        /// Отображение формы добавления нового билета
+        /// </summary>
         public IActionResult AddTicket()
         {
             return View();
         }
 
+        /// <summary>
+        /// Отображение формы редактирования существующего билета по ID
+        /// </summary>
         public async Task<IActionResult> Edit(Guid? id)
         {
             try
@@ -62,6 +78,9 @@ namespace TravelAgency.Controllers
             }
         }
 
+        /// <summary>
+        /// Обновление данных после редактирования
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Edit(TicketResponse ticket)
         {
@@ -81,6 +100,9 @@ namespace TravelAgency.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Добавление нового билета в БД
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> AddTicket(TicketResponse ticket)
         {
@@ -100,6 +122,9 @@ namespace TravelAgency.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Удаление билета из БД по ID
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> Delete(Guid? id)
         {

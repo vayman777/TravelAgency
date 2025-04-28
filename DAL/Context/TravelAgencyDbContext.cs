@@ -4,6 +4,9 @@ using TravelAgency.DAL.Entities;
 
 namespace TravelAgency.DAL.Context
 {
+    /// <summary>
+    /// Контекст БД
+    /// </summary>
     public class TravelAgencyDbContext : DbContext, IDbReader, IDbWriter, IUnitOfWork
     {
         public DbSet<Ticket> Tickets { get; set; }

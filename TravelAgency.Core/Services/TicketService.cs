@@ -5,12 +5,18 @@ using TravelAgency.DAL.Entities;
 
 namespace TravelAgency.Core.Services
 {
+    /// <summary>
+    /// Сервис по работе с билетами
+    /// </summary>
     public class TicketService : ITicketService
     {
         private readonly ITicketReadRepository ticketReadRepository;
         private readonly ITicketWriteRepository ticketWriteRepository;
         private readonly IUnitOfWork unitOfWork;
 
+        /// <summary>
+        /// Конструктор <see cref="TicketService"/>
+        /// </summary>
         public TicketService(ITicketReadRepository ticketReadRepository,
             ITicketWriteRepository ticketWriteRepository,
             IUnitOfWork unitOfWork)
@@ -20,6 +26,9 @@ namespace TravelAgency.Core.Services
             this.unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        /// Получение билета по ID
+        /// </summary>
         public async Task<TicketDto?> GetTicketByIdAsync(Guid? id)
         {
             if (id == null)
@@ -46,6 +55,9 @@ namespace TravelAgency.Core.Services
             return ticketDto;
         }
 
+        /// <summary>
+        /// Получение списка всех билетов
+        /// </summary>
         public async Task<List<TicketDto>> GetTicketsAsync()
         {
             var tickets = await ticketReadRepository.GetTicketsAsync();
@@ -63,6 +75,9 @@ namespace TravelAgency.Core.Services
             }).ToList();
         }
 
+        /// <summary>
+        /// Создание билета
+        /// </summary>
         public async Task CreateAsync(TicketDto entity)
         {
             entity.TotalCost = (entity.CostPerPerson * entity.PersonCount) + entity.Surcharge;
@@ -82,6 +97,9 @@ namespace TravelAgency.Core.Services
             await unitOfWork.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Удаление билета по ID
+        /// </summary>
         public async Task DeleteAsync(Guid? id)
         {
             if (id.HasValue)
@@ -103,6 +121,9 @@ namespace TravelAgency.Core.Services
             }
         }
 
+        /// <summary>
+        /// Редактирование билета
+        /// </summary>
         public async Task UpdateAsync(TicketDto entity)
         {
             entity.TotalCost = (entity.CostPerPerson * entity.PersonCount) + entity.Surcharge;

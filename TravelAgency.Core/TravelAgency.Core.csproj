@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ContextContracts\Context.Contracts.csproj" />
-    <ProjectReference Include="..\Repositories.Contracts\Repositories.Contracts.csproj" />
+    <ProjectReference Include="..\DAL\ContextContracts\Context.Contracts.csproj" />
+    <ProjectReference Include="..\DAL\Repositories.Contracts\Repositories.Contracts.csproj" />
     <ProjectReference Include="..\TravelAgency.Core.Contracts\TravelAgency.Core.Contracts.csproj" />
   </ItemGroup>
 

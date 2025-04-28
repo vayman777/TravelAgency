@@ -21,12 +21,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ContextContracts\Context.Contracts.csproj" />
-    <ProjectReference Include="..\Context\Context.csproj" />
-    <ProjectReference Include="..\Repositories.Contracts\Repositories.Contracts.csproj" />
-    <ProjectReference Include="..\Repositories\Repositories.csproj" />
+    <ProjectReference Include="..\DAL\ContextContracts\Context.Contracts.csproj" />
+    <ProjectReference Include="..\DAL\Context\Context.csproj" />
+    <ProjectReference Include="..\DAL\Repositories.Contracts\Repositories.Contracts.csproj" />
+    <ProjectReference Include="..\DAL\Repositories\Repositories.csproj" />
     <ProjectReference Include="..\TravelAgency.Core.Contracts\TravelAgency.Core.Contracts.csproj" />
-    <ProjectReference Include="..\TravelAgency.Domain\TravelAgency.Core.csproj" />
+    <ProjectReference Include="..\TravelAgency.Core\TravelAgency.Core.csproj" />
   </ItemGroup>
 
 </Project>
