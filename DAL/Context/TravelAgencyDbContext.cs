@@ -17,12 +17,6 @@ namespace TravelAgency.DAL.Context
             //Database.EnsureCreated();
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=agency;Username=postgres;Password=postgres");
-        }
-
         IQueryable<TEntity> IDbReader.Read<TEntity>()
             => base.Set<TEntity>()
             .AsNoTracking().AsQueryable();

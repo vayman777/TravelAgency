@@ -13,7 +13,7 @@
         /// <summary>
         /// Направление
         /// </summary>
-        public string Direction { get; set; }
+        public string Direction { get; set; } = string.Empty;
 
         /// <summary>
         /// Дата вылета
@@ -38,7 +38,7 @@
         /// <summary>
         /// Наличие Wi-Fi
         /// </summary>
-        public string AvailabilityWiFi  { get; set; }
+        public string AvailabilityWiFi  { get; set; } = string.Empty;
 
         /// <summary>
         /// Доплаты
